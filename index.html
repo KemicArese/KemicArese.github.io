@@ -1,135 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking System of India - Educational Project</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        nav {
-            background-color: #0056b3;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        section {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #007bff;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 5px;
-        }
-        footer {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
-        }
-        .icon {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | Krestic</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f4f4f6;
+      --card: #ffffff;
+      --text: #1e1e1e;
+      --subtext: #555;
+      --accent: #7a4df3;
+      --accent-soft: rgba(122, 77, 243, 0.15);
+      --shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    body.dark {
+      --bg: #0f0f14;
+      --card: #16161f;
+      --text: #f5f5f7;
+      --subtext: #b5b5c0;
+      --accent: #9d7bff;
+      --accent-soft: rgba(157, 123, 255, 0.18);
+      --shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background 0.6s ease, color 0.6s ease;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      background: var(--card);
+      border-radius: 999px;
+      padding: 10px 16px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    .theme-toggle span {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Hero */
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 900px;
+      padding: 40px;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--accent), #bfa7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--subtext);
+      margin-bottom: 40px;
+    }
+
+    .hero .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .tag {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 500;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Sections */
+    section {
+      padding: 120px 10%;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -12px;
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      margin-bottom: 14px;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      color: var(--subtext);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 10%;
+      text-align: center;
+      color: var(--subtext);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      section { padding: 90px 6%; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>🏦 Banking System of India</h1>
-        <p>An Educational Project on Financial Literacy</p>
-    </header>
-    
-    <nav>
-        <a href="#about">About</a>
-        <a href="#banking">Banking System</a>
-        <a href="#atm">ATM</a>
-        <a href="#debit">Debit Card</a>
-        <a href="#credit">Credit Card</a>
-        <a href="#micro-atm">Micro ATM</a>
-        <a href="#banks">Indian Banks</a>
-        <a href="#conclusion">Conclusion</a>
-    </nav>
-    
-    <section id="about">
-        <h2><span class="icon">⭐</span>About This Project</h2>
-        <p>This project is a detailed study of the Banking System of India, created to help understand the basic concepts of financial literacy. It explains the role of the Reserve Bank of India (RBI), the difference between public and private sector banks, and the functions of an ATM. The project also provides simple definitions of debit cards, credit cards, and the major companies that issue these cards.</p>
-        <p>In addition, it includes short overviews of important Indian banks such as SBI, Bank of Baroda, HDFC Bank, and ICICI Bank, highlighting their features and services. The project also introduces the concept of a micro ATM, which brings banking services to rural and remote areas.</p>
-        <p>Overall, this project aims to give students a clear understanding of how banks work, how digital banking tools are used, and why financial awareness is important in daily life.</p>
-    </section>
-    
-    <section id="banking">
-        <h2><span class="icon">🏛️</span>Banking System Overview</h2>
-        <p>Banks are broadly categorized by ownership (Public/Govt., Private, Foreign), function (Retail for individuals, Commercial for businesses, Investment for capital markets, Central as regulator), and target (Cooperative, Regional Rural, Small Finance, Payment Banks for inclusion). They provide services like deposits (Savings, Current), loans, digital platforms, and specialized financial products, all under the umbrella of national financial regulations, with the Central Bank (RBI in India) acting as the apex body.</p>
-    </section>
-    
-    <section id="atm">
-        <h2><span class="icon">💳</span>ATM (Automated Teller Machine)</h2>
-        <p>ATMs are self-service banking terminals that let customers withdraw cash, check balance, and perform basic transactions without visiting a branch. They are categorized by location (on-site, off-site, mobile) and function (withdrawal, deposit, inquiry, PIN services). ATMs connect to the bank’s central network for real-time verification and work with card networks like Visa, Mastercard, and RuPay. By offering 24×7 access, ATMs reduce branch traffic and make banking more convenient and accessible, especially in rural and semi-urban areas.</p>
-    </section>
-    
-    <section id="debit">
-        <h2><span class="icon">💳</span>Debit Card</h2>
-        <p>Debit cards are bank-issued payment cards linked directly to a customer’s savings or current account. They allow cash withdrawal, online/offline purchases, and balance inquiries, with every transaction deducted instantly from the user’s account. Debit cards operate on networks like Visa, Mastercard, and RuPay, ensuring nationwide and international usability. As real-time, account-based instruments, they promote secure cashless payments and easy access to funds.</p>
-    </section>
-    
-    <section id="credit">
-        <h2><span class="icon">💳</span>Credit Card</h2>
-        <p>Credit cards are bank-issued payment instruments that let customers borrow money up to a preset limit for purchases and bill payments. The amount is repaid later within a monthly billing cycle, often with benefits like rewards, EMI options, and cashback. They run on networks such as Visa, Mastercard, and American Express, enabling global transactions. By offering short-term credit and flexible payment features, credit cards support convenience, financial planning, and controlled borrowing.</p>
-    </section>
-    
-    <section id="micro-atm">
-        <h2><span class="icon">📱</span>Micro ATM</h2>
-        <p>Micro ATMs are portable, handheld banking devices operated by banking correspondents to provide basic financial services in rural and remote areas. They support cash withdrawal, balance inquiry, and account verification using Aadhaar authentication, PIN, or debit card. Connected to the bank’s central system, they enable real-time transactions even where branches or full ATMs are unavailable. By extending essential banking access to underserved regions, micro ATMs promote financial inclusion and doorstep banking.</p>
-    </section>
-    
-    <section id="banks">
-        <h2><span class="icon">🏦</span>Important Indian Banks</h2>
-        <h3>State Bank of India (SBI)</h3>
-        <p>SBI is India's largest public sector bank, offering a wide range of services like savings accounts, loans, and digital banking. It's known for its extensive branch network and focus on rural banking.</p>
-        
-        <h3>Bank of Baroda</h3>
-        <p>A major public sector bank with services for individuals and businesses, including international banking and digital tools for easy transactions.</p>
-        
-        <h3>HDFC Bank</h3>
-        <p>A leading private sector bank providing innovative services like online banking, credit cards, and investment options, emphasizing customer convenience.</p>
-        
-        <h3>ICICI Bank</h3>
-        <p>A private bank known for retail banking, loans, and digital platforms, with a focus on technology-driven services for urban and rural customers.</p>
-    </section>
-    
-    <section id="conclusion">
-        <h2><span class="icon">✅</span>Conclusion</h2>
-        <p>This project highlights how India’s banking system works together to support individuals, businesses, and the overall economy. From the RBI acting as the central regulator to different types of banks providing essential services, each part plays a crucial role in financial stability. Tools like ATMs, debit cards, credit cards, and micro ATMs have made banking faster, safer, and more accessible, especially with the growth of digital platforms. Understanding these concepts helps us become more financially aware and better prepared to use banking services responsibly. Overall, the banking system aims to promote convenience, security, and financial inclusion for all citizens.</p>
-    </section>
-    
-    <footer>
-        <p>Project by [Your Name] | Learn more at <a href="https://www.rbi.org.in" target="_blank" style="color: white;">RBI Official Website</a></p>
-    </footer>
+
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <span>🌗 Theme</span>
+  </div>
+
+  <header>
+    <div class="hero">
+      <h1>Krestic</h1>
+      <p>Python Developer • AI Enthusiast • Creative Problem Solver</p>
+      <div class="tags">
+        <div class="tag">Offline AI Assistants</div>
+        <div class="tag">Python & GUI Apps</div>
+        <div class="tag">Game Development</div>
+        <div class="tag">System Automation</div>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="section-title reveal">About Me</h2>
+    <div class="card reveal">
+      <p>
+        I am a passionate developer who enjoys building practical, efficient, and creative software solutions.
+        My interests range from fully offline AI assistants and voice-controlled systems to game development
+        and clean user interface design. I enjoy turning complex ideas into simple, usable applications.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title reveal">What I Work On</h2>
+    <div class="grid">
+      <div class="card reveal">
+        <h3>AI Assistants</h3>
+        <p>
+          Designed offline and online AI assistants using Python, focusing on voice interaction,
+          system control, and privacy-friendly local execution.
+        </p>
+      </div>
+      <div class="card reveal">
+        <h3>GUI Applications</h3>
+        <p>
+          Building clean, modern interfaces inspired by Windows 11 and Fluent Design
+          using Python frameworks and web technologies.
+        </p>
+      </div>
+      <div class="card reveal">
+        <h3>Game Development</h3>
+        <p>
+          Creating interactive games in Python with structured logic, animations,
+          progression systems, and optimized performance.
+        </p>
+      </div>
+      <div class="card reveal">
+        <h3>Automation & Tools</h3>
+        <p>
+          Developing scripts and tools to automate tasks, manage systems,
+          and improve productivity on low-end hardware.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed & Built by Krestic • Static Website Demo</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    window.addEventListener('scroll', () => {
+      const trigger = window.innerHeight * 0.85;
+      reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < trigger) el.classList.add('active');
+      });
+    });
+  </script>
+
 </body>
 </html>
