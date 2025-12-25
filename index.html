@@ -3,138 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Me | Krestic</title>
+  <title>Shirsh | Portfolio</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #f4f4f6;
+      --bg: #f2f2f4;
       --card: #ffffff;
-      --text: #1e1e1e;
-      --subtext: #555;
+      --text: #1a1a1a;
+      --muted: #666;
       --accent: #7a4df3;
-      --accent-soft: rgba(122, 77, 243, 0.15);
-      --shadow: 0 20px 40px rgba(0,0,0,0.08);
+      --accent-soft: rgba(122,77,243,0.15);
+      --shadow: 0 25px 50px rgba(0,0,0,0.1);
     }
 
     body.dark {
-      --bg: #0f0f14;
-      --card: #16161f;
+      --bg: #0b0b10;
+      --card: #15151d;
       --text: #f5f5f7;
-      --subtext: #b5b5c0;
-      --accent: #9d7bff;
-      --accent-soft: rgba(157, 123, 255, 0.18);
-      --shadow: 0 20px 40px rgba(0,0,0,0.4);
+      --muted: #b6b6c3;
+      --accent: #9f83ff;
+      --accent-soft: rgba(159,131,255,0.18);
+      --shadow: 0 35px 80px rgba(0,0,0,0.55);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
     body {
       background: var(--bg);
       color: var(--text);
+      transition: background .6s ease, color .6s ease;
       overflow-x: hidden;
-      transition: background 0.6s ease, color 0.6s ease;
     }
 
     /* Theme Toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 100;
+    .toggle {
+      position: fixed; top: 20px; left: 20px; z-index: 999;
       background: var(--card);
+      padding: 12px 18px;
       border-radius: 999px;
-      padding: 10px 16px;
       box-shadow: var(--shadow);
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: transform 0.3s ease;
+      transition: transform .3s ease, background .3s ease;
+      user-select: none;
+    }
+    .toggle:hover { transform: scale(1.08); }
+
+    /* Animated background */
+    .bg-anim {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, var(--accent-soft), transparent 45%),
+        radial-gradient(circle at 80% 80%, var(--accent-soft), transparent 45%);
+      animation: bgmove 30s linear infinite;
+      z-index: -1;
     }
 
-    .theme-toggle:hover {
-      transform: scale(1.05);
+    @keyframes bgmove {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
     }
 
-    .theme-toggle span {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    /* Hero */
     header {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
+      text-align: center;
+      padding: 60px 10%;
     }
 
     .hero {
-      text-align: center;
-      max-width: 900px;
-      padding: 40px;
-      animation: fadeUp 1.2s ease forwards;
+      animation: fadeUp 1s ease forwards;
     }
 
     .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, var(--accent), #bfa7ff);
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--accent), #c5b3ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
     }
 
     .hero p {
-      font-size: 1.2rem;
-      color: var(--subtext);
-      margin-bottom: 40px;
+      font-size: 1.3rem;
+      color: var(--muted);
     }
 
-    .hero .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
+    .avatar {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      margin: 0 auto 30px;
+      background: linear-gradient(135deg, var(--accent), #c5b3ff);
+      display: grid; place-items: center;
+      color: white; font-size: 3.2rem; font-weight: 600;
+      box-shadow: 0 0 60px var(--accent);
+      animation: pulse 3.5s ease-in-out infinite;
+      transition: transform .4s ease, border-radius .4s ease;
     }
 
-    .tag {
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: 500;
-      animation: float 4s ease-in-out infinite;
+    .avatar:hover {
+      transform: scale(1.05);
+      border-radius: 30%;
     }
 
-    /* Sections */
-    section {
-      padding: 120px 10%;
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 35px var(--accent); }
+      50% { box-shadow: 0 0 90px var(--accent); }
     }
 
-    .section-title {
-      font-size: 2.4rem;
-      margin-bottom: 40px;
+    section { padding: 120px 10%; }
+
+    h2 {
+      font-size: 2.6rem;
+      margin-bottom: 50px;
       position: relative;
     }
 
-    .section-title::after {
-      content: "";
+    h2::after {
+      content: '';
       position: absolute;
-      left: 0;
-      bottom: -12px;
-      width: 60px;
-      height: 4px;
+      bottom: -12px; left: 0;
+      width: 70px; height: 4px;
       background: var(--accent);
       border-radius: 10px;
     }
@@ -147,148 +139,154 @@
 
     .card {
       background: var(--card);
-      border-radius: 20px;
-      padding: 30px;
+      padding: 38px;
+      border-radius: 24px;
       box-shadow: var(--shadow);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      animation: fadeUp 1.2s ease forwards;
+      transition: transform .4s ease, box-shadow .4s ease;
     }
 
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+      transform: translateY(-14px) scale(1.03);
     }
 
-    .card h3 {
-      margin-bottom: 14px;
-      font-size: 1.3rem;
+    /* Skills bars */
+    .skill {
+      margin-bottom: 20px;
     }
 
-    .card p {
-      color: var(--subtext);
-      font-size: 0.95rem;
-      line-height: 1.6;
+    .skill span {
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
-    /* Footer */
+    .bar {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .bar div {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #c5b3ff);
+      animation: grow 2s ease forwards;
+    }
+
+    @keyframes grow {
+      from { width: 0; }
+      to { width: var(--w); }
+    }
+
+    .timeline {
+      border-left: 4px solid var(--accent);
+      padding-left: 40px;
+    }
+
+    .event {
+      margin-bottom: 50px;
+      position: relative;
+      color: var(--muted);
+    }
+
+    .event::before {
+      content: '';
+      position: absolute;
+      left: -52px; top: 6px;
+      width: 18px; height: 18px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
     footer {
-      padding: 60px 10%;
       text-align: center;
-      color: var(--subtext);
+      padding: 70px 10%;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
-    /* Animations */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(50px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-
-    /* Scroll reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.5rem; }
+      .hero h1 { font-size: 2.6rem; }
       section { padding: 90px 6%; }
     }
   </style>
 </head>
-<body>
+<body class="dark">
 
-  <div class="theme-toggle" onclick="toggleTheme()">
-    <span>🌗 Theme</span>
+<div class="bg-anim"></div>
+
+<div class="toggle" onclick="toggleTheme()" id="toggle">🌙 Dark</div>
+
+<header>
+  <div class="hero">
+    <div class="avatar">S</div>
+    <h1>Shirsh</h1>
+    <p>Python Developer • AI Builder • System Optimizer</p>
   </div>
+</header>
 
-  <header>
-    <div class="hero">
-      <h1>Krestic</h1>
-      <p>Python Developer • AI Enthusiast • Creative Problem Solver</p>
-      <div class="tags">
-        <div class="tag">Offline AI Assistants</div>
-        <div class="tag">Python & GUI Apps</div>
-        <div class="tag">Game Development</div>
-        <div class="tag">System Automation</div>
-      </div>
-    </div>
-  </header>
+<section>
+  <h2>About Me</h2>
+  <div class="card">
+    I specialize in building efficient, reliable, and visually clean software systems. My work focuses on offline AI assistants, automation tools, and performance-optimized applications that remain usable even on low-end hardware.
+  </div>
+</section>
 
-  <section>
-    <h2 class="section-title reveal">About Me</h2>
-    <div class="card reveal">
-      <p>
-        I am a passionate developer who enjoys building practical, efficient, and creative software solutions.
-        My interests range from fully offline AI assistants and voice-controlled systems to game development
-        and clean user interface design. I enjoy turning complex ideas into simple, usable applications.
-      </p>
-    </div>
-  </section>
+<section>
+  <h2>What I Do</h2>
+  <div class="grid">
+    <div class="card">AI assistants with voice interaction, GUI, and offline execution</div>
+    <div class="card">Python applications inspired by modern UI & Fluent Design</div>
+    <div class="card">Game development with structured logic and progression systems</div>
+    <div class="card">Automation tools for productivity and system-level control</div>
+  </div>
+</section>
 
-  <section>
-    <h2 class="section-title reveal">What I Work On</h2>
-    <div class="grid">
-      <div class="card reveal">
-        <h3>AI Assistants</h3>
-        <p>
-          Designed offline and online AI assistants using Python, focusing on voice interaction,
-          system control, and privacy-friendly local execution.
-        </p>
-      </div>
-      <div class="card reveal">
-        <h3>GUI Applications</h3>
-        <p>
-          Building clean, modern interfaces inspired by Windows 11 and Fluent Design
-          using Python frameworks and web technologies.
-        </p>
-      </div>
-      <div class="card reveal">
-        <h3>Game Development</h3>
-        <p>
-          Creating interactive games in Python with structured logic, animations,
-          progression systems, and optimized performance.
-        </p>
-      </div>
-      <div class="card reveal">
-        <h3>Automation & Tools</h3>
-        <p>
-          Developing scripts and tools to automate tasks, manage systems,
-          and improve productivity on low-end hardware.
-        </p>
-      </div>
-    </div>
-  </section>
+<section>
+  <h2>Core Skills</h2>
+  <div class="card">
+    <div class="skill"><span>Python</span><div class="bar"><div style="--w:90%"></div></div></div>
+    <div class="skill"><span>AI / Automation</span><div class="bar"><div style="--w:85%"></div></div></div>
+    <div class="skill"><span>GUI & UI Design</span><div class="bar"><div style="--w:80%"></div></div></div>
+    <div class="skill"><span>Performance Optimization</span><div class="bar"><div style="--w:75%"></div></div></div>
+  </div>
+</section>
 
-  <footer>
-    <p>Designed & Built by Krestic • Static Website Demo</p>
-  </footer>
+<section>
+  <h2>Journey</h2>
+  <div class="timeline">
+    <div class="event">Built strong foundations in Python and automation</div>
+    <div class="event">Developed AI assistants with voice, GUI, and offline logic</div>
+    <div class="event">Focused on low-end system optimization and efficiency</div>
+    <div class="event">Refined UI/UX and presentation-quality design</div>
+  </div>
+</section>
 
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-    }
+<footer>
+  Designed & Built by Shirsh • Portfolio Presentation
+</footer>
 
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    window.addEventListener('scroll', () => {
-      const trigger = window.innerHeight * 0.85;
-      reveals.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        if (top < trigger) el.classList.add('active');
-      });
-    });
-  </script>
+<script>
+  const toggle = document.getElementById('toggle');
+
+  function toggleTheme() {
+    document.body.classList.toggle('dark');
+    const dark = document.body.classList.contains('dark');
+    toggle.textContent = dark ? '🌙 Dark' : '☀️ Light';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+
+  // Persist theme
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.remove('dark');
+    toggle.textContent = '☀️ Light';
+  }
+</script>
 
 </body>
 </html>
