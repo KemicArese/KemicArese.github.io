@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPS A.I. Showcase</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Orbitron:wght@500;700;900&amp;display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --transition: all 0.3s ease;
+            --nav-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif; /* Futuristic font for headings */
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* --- UTILITY CLASSES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .text-gradient {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-color);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-gradient);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- MODAL STYLES --- */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Black with opacity */
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        .modal-body h3 {
+            color: var(--accent-cyan);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: var(--glass-border);
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* --- HERO SECTION --- */
+        #home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.1), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.1), transparent 40%);
+            padding-top: var(--nav-height);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* --- ABOUT US (Features) --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            border: var(--glass-border);
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-cyan);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+        }
+
+        /* --- SDG KNOWLEDGE --- */
+        .sdg-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .sdg-card {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .sdg-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .sdg-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .sdg-card:hover .sdg-overlay {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .sdg-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* SDG Colors */
+        .sdg-2 { background-color: #DDA63A; } /* Zero Hunger */
+        .sdg-3 { background-color: #4C9F38; } /* Good Health */
+        .sdg-4 { background-color: #C5192D; } /* Quality Education */
+        .sdg-8 { background-color: #A21942; } /* Decent Work */
+        .sdg-9 { background-color: #FD6925; } /* Industry Innovation */
+        .sdg-11 { background-color: #FD9D24; } /* Sustainable Cities */
+        .sdg-13 { background-color: #3F7E44; } /* Climate Action */
+
+        /* --- TOOLS & PYTHON LIBS --- */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: var(--bg-secondary);
+            border: var(--glass-border);
+            border-radius: 10px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: var(--accent-purple);
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            color: var(--accent-purple);
+        }
+
+        /* --- CHATBOT SECTION --- */
+        .chatbot-wrapper {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            border: var(--glass-border);
+            overflow: hidden;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .chat-header {
+            background: var(--accent-gradient);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-header h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chat-window {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .bot-msg {
+            background: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+
+        .user-msg {
+            background: var(--accent-cyan);
+            color: var(--bg-color);
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+            font-weight: 600;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            border-top: var(--glass-border);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            outline: none;
+        }
+
+        .chat-input-area button {
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-input-area button:hover {
+            background: #7c3aed;
+        }
+
+        /* --- AI SHOWCASE SECTION --- */
+        .showcase-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Featured Project (Large Layout) */
+        .project-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            padding: 40px;
+            border: var(--glass-border);
+            margin-bottom: 80px;
+        }
+
+        .project-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-content h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tag {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        /* Grid for other innovations */
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .innovation-card {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            border: var(--glass-border);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+        }
+
+        .innovation-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .innovation-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .innovation-body h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .innovation-body p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #020617;
+            padding: 30px 0;
+            text-align: center;
+            border-top: var(--glass-border);
+            margin-top: 80px;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                right: -100%;
+                width: 70%;
+                height: calc(100vh - var(--nav-height));
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 40px;
+                transition: 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .project-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#home" class="logo">
+                    <i class="fa-solid fa-microchip" style="color: var(--accent-cyan);"></i>
+                    <span>DPS <span class="text-gradient">A.I. Showcase</span></span>
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#ai-showcase">AI Showcase</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home">
+            <div class="container hero-content">
+                <h4>Welcome to the Future</h4>
+                <h1>DPS <span class="text-gradient">A.I. Showcase</span></h1>
+                <p>Explore cutting-edge tools, innovative startup projects, and discover how Artificial Intelligence is reshaping our world and the SDGs.</p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn btn-primary">Explore Features</a>
+                    <a href="#ai-showcase" class="btn btn-outline">View Showcase</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">About Us</h2>
+                <p class="section-subtitle">DPS A.I. Showcase is a platform dedicated to democratizing Artificial Intelligence knowledge, bridging the gap between technology and societal impact.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fa-solid fa-earth-americas feature-icon"></i>
+                        <h3>SDG Knowledge</h3>
+                        <p>Understanding how AI contributes to the UN Sustainable Development Goals.</p>
+                        <br>
+                        <a href="#sdg-section" style="color: var(--accent-cyan); font-size: 0.9rem;">Learn More →</a>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fa-solid fa-comments feature-icon"></i>
+                        <h3>Rule-Based Chatbot</h3>
+                        <p>Experience our interactive decision-making assistant built for quick queries.</p>
+                        <br>
+                        <a href="#chatbot-section" style="color: var(--accent-cyan); font-size: 0.9rem;">Try It Now →</a>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fa-brands fa-python feature-icon"></i>
+                        <h3>Python Libraries</h3>
+                        <p>A curated showcase of powerful Python libraries fueling modern AI.</p>
+                        <br>
+                        <a href="#tools" style="color: var(--accent-cyan); font-size: 0.9rem;">View Libraries →</a>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fa-solid fa-rocket feature-icon"></i>
+                        <h3>Indian Startups</h3>
+                        <p>Spotlight on the most innovative AI startups emerging from India.</p>
+                        <br>
+                        <a href="#ai-showcase" style="color: var(--accent-cyan); font-size: 0.9rem;">See Showcase →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SDG Knowledge Section -->
+        <section id="sdg-section" class="section-padding" style="background-color: #162033;">
+            <div class="container">
+                <h2 class="section-title">AI for SDGs</h2>
+                <p class="section-subtitle">Artificial Intelligence is a key accelerator for achieving global goals. Click a goal to see AI's impact.</p>
+                
+                <div class="sdg-container">
+                    <!-- SDG 2: Zero Hunger -->
+                    <div class="sdg-card sdg-2" onclick="openModal('Zero Hunger (SDG 2)', '<p><strong>AI Impact:</strong> AI-driven precision agriculture helps optimize crop yields and reduce food waste. Predictive models analyze soil data and weather patterns to advise farmers on the best times to sow and harvest.</p>')">
+                        <div class="sdg-overlay"></div>
+                        <div class="sdg-content">
+                            <i class="fa-solid fa-wheat-awn fa-2x"></i>
+                            <p>Zero Hunger</p>
+                        </div>
+                    </div>
+
+                    <!-- SDG 3: Good Health -->
+                    <div class="sdg-card sdg-3" onclick="openModal('Good Health (SDG 3)', '<p><strong>AI Impact:</strong> AI diagnostics enable early disease detection and remote patient monitoring. Algorithms analyze medical imaging (X-rays, MRIs) to identify anomalies faster than human doctors in some cases.</p>')">
+                        <div class="sdg-overlay"></div>
+                        <div class="sdg-content">
+                            <i class="fa-solid fa-heart-pulse fa-2x"></i>
+                            <p>Good Health</p>
+                        </div>
+                    </div>
+
+                    <!-- SDG 4: Quality Education -->
+                    <div class="sdg-card sdg-4" onclick="openModal('Quality Education (SDG 4)', '<p><strong>AI Impact:</strong> Personalized learning platforms are revolutionizing education access in rural India. Adaptive learning systems tailor educational content to the individual pace of the student.</p>')">
+                        <div class="sdg-overlay"></div>
+                        <div class="sdg-content">
+                            <i class="fa-solid fa-book-open fa-2x"></i>
+                            <p>Quality Education</p>
+                        </div>
+                    </div>
+
+                    <!-- SDG 8: Decent Work -->
+                    <div class="sdg-card sdg-8" onclick="openModal('Decent Work & Growth (SDG 8)', '<p><strong>AI Impact:</strong> Predictive analytics are creating new job markets and optimizing workforce management. AI tools are automating repetitive tasks, allowing humans to focus on creative work.</p>')">
+                        <div class="sdg-overlay"></div>
+                        <div class="sdg-content">
+                            <i class="fa-solid fa-briefcase fa-2x"></i>
+                            <p>Decent Work & Growth</p>
+                        </div>
+                    </div>
+
+                    <!-- SDG 9: Industry Innovation -->
+                    <div class="sdg-card sdg-9" onclick="openModal('Industry & Innovation (SDG 9)', '<p><strong>AI Impact:</strong> Smart manufacturing and IoT integration are driving industrial innovation. Robots and AI systems work alongside humans to increase efficiency and safety on the production line.</p>')">
+                        <div class="sdg-overlay"></div>
+                        <div class="sdg-content">
+                            <i class="fa-solid fa-industry fa-2x"></i>
+                            <p>Industry & Innovation</p>
+                        </div>
+                    </div>
+
+                    <!-- SDG 11: Sustainable Cities -->
+                    <div class="sdg-card sdg-11" onclick="openModal('Sustainable Cities (SDG 11)', '<p><strong>AI Impact:</strong> Smart traffic management and waste sorting systems are making cities more sustainable. AI optimizes traffic light timings to reduce congestion and pollution.</p>')">
+                        <div class="sdg-overlay"></div>
+                        <div class="sdg-content">
+                            <i class="fa-solid fa-city fa-2x"></i>
+                            <p>Sustainable Cities</p>
+                        </div>
+                    </div>
+
+                    <!-- SDG 13: Climate Action -->
+                    <div class="sdg-card sdg-13" onclick="openModal('Climate Action (SDG 13)', '<p><strong>AI Impact:</strong> Climate modeling and smart energy grids are crucial for fighting climate change. AI helps predict extreme weather events and optimizes renewable energy distribution.</p>')">
+                        <div class="sdg-overlay"></div>
+                        <div class="sdg-content">
+                            <i class="fa-solid fa-leaf fa-2x"></i>
+                            <p>Climate Action</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chatbot Section -->
+        <section id="chatbot-section" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">Interactive Assistant</h2>
+                <p class="section-subtitle">Try our rule-based chatbot. Ask about "hours", "projects", or just say "hello".</p>
+                
+                <div class="chatbot-wrapper">
+                    <div class="chat-header">
+                        <i class="fa-solid fa-robot"></i>
+                        <div>
+                            <h4>DPS Assistant</h4>
+                            <span style="font-size: 0.75rem; opacity: 0.8;">Online</span>
+                        </div>
+                    </div>
+                    <div class="chat-window" id="chat-window">
+                        <div class="message bot-msg">Hello! I am the DPS A.I. Showcase assistant. How can I help you today?</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="user-input" placeholder="Type a message...">
+                        <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools" class="section-padding" style="background-color: #162033;">
+            <div class="container">
+                <h2 class="section-title">AI Tools &amp; Libraries</h2>
+                <p class="section-subtitle">The essential Python libraries powering the next generation of Artificial Intelligence.</p>
+
+                <div class="tools-grid">
+                    <a href="https://www.tensorflow.org/" target="_blank" class="tool-card">
+                        <i class="fa-brands fa-python tool-icon"></i>
+                        <div>
+                            <h3>TensorFlow</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">An end-to-end open source platform for machine learning.</p>
+                        </div>
+                    </a>
+                    <a href="https://pytorch.org/" target="_blank" class="tool-card">
+                        <i class="fa-solid fa-fire tool-icon"></i>
+                        <div>
+                            <h3>PyTorch</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Tensors and Dynamic neural networks in Python with strong GPU acceleration.</p>
+                        </div>
+                    </a>
+                    <a href="https://keras.io/" target="_blank" class="tool-card">
+                        <i class="fa-solid fa-brain tool-icon"></i>
+                        <div>
+                            <h3>Keras</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Deep Learning for humans. High-level neural networks API.</p>
+                        </div>
+                    </a>
+                    <a href="https://www.nltk.org/" target="_blank" class="tool-card">
+                        <i class="fa-solid fa-language tool-icon"></i>
+                        <div>
+                            <h3>NLTK</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Leading platform for building Python programs to work with human language data.</p>
+                        </div>
+                    </a>
+                    <a href="https://pandas.pydata.org/" target="_blank" class="tool-card">
+                        <i class="fa-solid fa-chart-line tool-icon"></i>
+                        <div>
+                            <h3>Pandas</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Fast, powerful, flexible and easy to use open source data analysis.</p>
+                        </div>
+                    </a>
+                    <a href="https://opencv.org/" target="_blank" class="tool-card">
+                        <i class="fa-solid fa-eye tool-icon"></i>
+                        <div>
+                            <h3>OpenCV</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Library of programming functions mainly aimed at real-time computer vision.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Showcase Section -->
+        <section id="ai-showcase" class="section-padding" style="background-color: #162033;">
+            <div class="container">
+                <h2 class="section-title">AI Showcase</h2>
+                <div class="showcase-intro">
+                    <p class="section-subtitle">Featuring innovative projects and case studies from India's leading AI companies.</p>
+                </div>
+
+                <!-- Featured Project (Large Split View) -->
+                <div class="project-showcase">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/niramai/600/400" alt="Niramai Health Tech">
+                    </div>
+                    <div class="project-content">
+                        <h3>Featured: <span class="text-gradient">Niramai</span></h3>
+                        <p style="font-size: 1.1rem; color: var(--text-secondary);">
+                            Niramai is a healthtech startup developing a novel, non-invasive, non-touch, non-radiation, breast cancer screening solution. They use Artificial Intelligence over Thermopgraphy images.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HealthTech</span>
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">Deep Learning</span>
+                        </div>
+                        <p style="margin-bottom: 25px; color: var(--text-secondary);">
+                            This solution is portable, low-cost, and can detect breast cancer at an early stage, addressing the critical gap in accessibility across semi-urban and rural India.
+                        </p>
+                        <div style="display: flex; gap: 15px;">
+                            <button class="btn btn-primary" onclick="openCaseStudy('Niramai', 'Niramai (Non-Invasive Risk Assessment with Machine Intelligence) uses thermal imaging and AI to detect early-stage breast cancer. It is 5x cheaper than traditional mammography and painless for the patient.')">View Case Study</button>
+                            <button class="btn btn-outline" onclick="openDemo('Niramai Demo')">Watch Demo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="text-align: center; margin-bottom: 30px; font-size: 1.8rem;">More Innovations</h3>
+
+                <!-- Additional Projects Grid -->
+                <div class="innovation-grid">
+                    <!-- Innovation 1: CropIn -->
+                    <div class="innovation-card">
+                        <img src="https://picsum.photos/seed/cropin/400/250" alt="CropIn Technology" class="innovation-img">
+                        <div class="innovation-body">
+                            <h3>CropIn Technology</h3>
+                            <div class="project-tags" style="margin-bottom: 10px;">
+                                <span class="tag">AgriTech</span>
+                                <span class="tag">SaaS</span>
+                            </div>
+                            <p>CropIn provides intelligent farming solutions to enable data-driven farming. Their AI platform helps farmers monitor crop health and predict yields using satellite imagery.</p>
+                            <a href="https://cropin.com" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 16px;">Visit Site</a>
+                        </div>
+                    </div>
+
+                    <!-- Innovation 2: Wysa -->
+                    <div class="innovation-card">
+                        <img src="https://picsum.photos/seed/wysa/400/250" alt="Wysa AI" class="innovation-img">
+                        <div class="innovation-body">
+                            <h3>Wysa</h3>
+                            <div class="project-tags" style="margin-bottom: 10px;">
+                                <span class="tag">HealthTech</span>
+                                <span class="tag">NLP</span>
+                            </div>
+                            <p>Wysa is an AI-based emotionally intelligent chatbot for behavioral health. It helps users build resilience and manage mental well-being through evidence-based conversational AI.</p>
+                            <a href="https://wysa.io" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 16px;">Visit Site</a>
+                        </div>
+                    </div>
+
+                    <!-- Innovation 3: Entropik -->
+                    <div class="innovation-card">
+                        <img src="https://picsum.photos/seed/entropik/400/250" alt="Entropik Tech" class="innovation-img">
+                        <div class="innovation-body">
+                            <h3>Entropik Tech</h3>
+                            <div class="project-tags" style="margin-bottom: 10px;">
+                                <span class="tag">Consumer</span>
+                                <span class="tag">Emotion AI</span>
+                            </div>
+                            <p>Pioneers in Emotion AI, Entropik helps brands measure consumer emotions through facial coding, eye tracking, and voice tonality analysis.</p>
+                            <a href="https://entropik.tech" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 16px;">Visit Site</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 DPS A.I. Showcase.</p>
+        </div>
+    </footer>
+
+    <!-- The Modal Structure -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody" class="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Toggle icon between bars and times (X)
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // --- MODAL FUNCTIONALITY ---
+        const modal = document.getElementById("infoModal");
+        const modalBody = document.getElementById("modalBody");
+
+        // Open general modal (for SDGs)
+        function openModal(title, content) {
+            let htmlContent = `<h2>${title}</h2><hr style="border-color:var(--glass-border); margin: 10px 0;">${content}`;
+            modalBody.innerHTML = htmlContent;
+            modal.style.display = "flex";
+        }
+
+        // Open Case Study Modal
+        function openCaseStudy(title, description) {
+            let htmlContent = `
+                <h2>Case Study: ${title}</h2>
+                <div class="project-tags" style="margin: 15px 0;">
+                    <span class="tag">Analysis</span>
+                    <span class="tag">Impact</span>
+                </div>
+                <p style="font-size: 1.1rem; line-height: 1.6;">${description}</p>
+                <div style="margin-top: 20px;">
+                    <p><strong>Key Outcomes:</strong></p>
+                    <ul style="list-style: disc; padding-left: 20px; color: var(--text-secondary);">
+                        <li>Increased accessibility in rural areas.</li>
+                        <li>Reduced cost of screening by 80%.</li>
+                        <li>High accuracy in early detection.</li>
+                    </ul>
+                </div>
+            `;
+            modalBody.innerHTML = htmlContent;
+            modal.style.display = "flex";
+        }
+
+        // Open Demo Modal
+        function openDemo(title) {
+            let htmlContent = `
+                <h2>${title}</h2>
+                <p style="color:var(--text-secondary);">Demo Video Player</p>
+                <div class="video-placeholder">
+                    <div style="text-align: center;">
+                        <i class="fa-solid fa-play-circle" style="font-size: 4rem; margin-bottom: 10px;"></i>
+                        <p>[Video Placeholder]</p>
+                        <p style="font-size: 0.8rem; opacity: 0.7;">(Video would load here)</p>
+                    </div>
+                </div>
+                <p>This demonstrates the technology in action. Notice how the AI processes the input data in real-time to provide actionable insights.</p>
+            `;
+            modalBody.innerHTML = htmlContent;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close modal if user clicks outside content
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // --- CHATBOT FUNCTIONALITY ---
+        function sendMessage() {
+            const inputField = document.getElementById('user-input');
+            const chatWindow = document.getElementById('chat-window');
+            const userText = inputField.value.trim().toLowerCase();
+
+            if (userText === "") return;
+
+            // 1. Add User Message
+            addMessage(inputField.value, 'user-msg');
+            inputField.value = '';
+
+            // 2. Simulate Typing Delay and Bot Response
+            setTimeout(() => {
+                let botResponse = "I'm sorry, I didn't understand that. Try asking about 'services', 'projects', or 'hello'.";
+                
+                if (userText.includes('hello') || userText.includes('hi')) {
+                    botResponse = "Hello there! Welcome to DPS A.I. Showcase.";
+                } else if (userText.includes('service') || userText.includes('help')) {
+                    botResponse = "We offer AI consulting, educational resources, and startup showcases.";
+                } else if (userText.includes('project') || userText.includes('showcase')) {
+                    botResponse = "We feature amazing projects like Niramai, CropIn, and Wysa. Scroll down to the Showcase section to see them!";
+                } else if (userText.includes('thank')) {
+                    botResponse = "You're welcome! Let me know if you need anything else.";
+                }
+
+                addMessage(botResponse, 'bot-msg');
+            }, 600);
+        }
+
+        // Allow pressing Enter to send
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function addMessage(text, className) {
+            const chatWindow = document.getElementById('chat-window');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', className);
+            messageDiv.textContent = text;
+            chatWindow.appendChild(messageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Auto scroll to bottom
+        }
+    </script>
+
+</body></html>
