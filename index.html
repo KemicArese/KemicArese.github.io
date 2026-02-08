@@ -9,210 +9,382 @@
 
   <style>
     :root {
-      --bg: #f2f2f4;
+      /* Color Palette */
+      --bg: #f4f4f6;
       --card: #ffffff;
       --text: #1a1a1a;
       --muted: #666;
       --accent: #7a4df3;
-      --accent-soft: rgba(122,77,243,0.15);
-      --shadow: 0 25px 50px rgba(0,0,0,0.1);
+      --accent-light: #a389ff;
+      --accent-soft: rgba(122, 77, 243, 0.1);
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --border: rgba(0,0,0,0.05);
     }
 
+    /* Dark Mode Overrides */
     body.dark {
       --bg: #0b0b10;
-      --card: #15151d;
+      --card: #16161f;
       --text: #f5f5f7;
-      --muted: #b6b6c3;
+      --muted: #a0a0b0;
       --accent: #9f83ff;
-      --accent-soft: rgba(159,131,255,0.18);
-      --shadow: 0 35px 80px rgba(0,0,0,0.55);
+      --accent-light: #c5b3ff;
+      --accent-soft: rgba(159, 131, 255, 0.15);
+      --shadow: 0 20px 50px rgba(0,0,0,0.4);
+      --border: rgba(255,255,255,0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
       color: var(--text);
-      transition: background .6s ease, color .6s ease;
+      transition: background 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.5s ease;
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* Theme Toggle */
-    .toggle {
-      position: fixed; top: 20px; left: 20px; z-index: 999;
-      background: var(--card);
-      padding: 12px 18px;
-      border-radius: 999px;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      transition: transform .3s ease, background .3s ease;
-      user-select: none;
-    }
-    .toggle:hover { transform: scale(1.08); }
-
-    /* Animated background */
+    /* --- Background Animation --- */
     .bg-anim {
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, var(--accent-soft), transparent 45%),
-        radial-gradient(circle at 80% 80%, var(--accent-soft), transparent 45%);
-      animation: bgmove 30s linear infinite;
       z-index: -1;
+      background:
+        radial-gradient(circle at 15% 50%, var(--accent-soft), transparent 40%),
+        radial-gradient(circle at 85% 30%, var(--accent-soft), transparent 40%);
+      filter: blur(60px);
+      opacity: 0.7;
+      animation: bgPulse 15s ease-in-out infinite alternate;
     }
 
-    @keyframes bgmove {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
+    @keyframes bgPulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.1); opacity: 0.8; }
     }
 
+    /* --- Theme Toggle --- */
+    .toggle {
+      position: fixed; top: 25px; left: 25px; z-index: 100;
+      background: var(--card);
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .toggle:hover { transform: scale(1.05); box-shadow: 0 10px 20px var(--accent-soft); }
+
+    /* --- Header / Hero --- */
     header {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 10%;
+      padding: 0 20px;
+      position: relative;
     }
 
-    .hero {
-      animation: fadeUp 1s ease forwards;
+    .hero-content {
+      max-width: 800px;
+      opacity: 0; /* JS handles fade in */
+      transform: translateY(30px);
+      animation: heroFadeIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
 
-    .hero h1 {
-      font-size: 4rem;
-      background: linear-gradient(135deg, var(--accent), #c5b3ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 1.3rem;
-      color: var(--muted);
+    @keyframes heroFadeIn {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .avatar {
-      width: 150px; height: 150px;
+      width: 160px; height: 160px;
       border-radius: 50%;
-      margin: 0 auto 30px;
-      background: linear-gradient(135deg, var(--accent), #c5b3ff);
+      margin: 0 auto 2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
       display: grid; place-items: center;
-      color: white; font-size: 3.2rem; font-weight: 600;
-      box-shadow: 0 0 60px var(--accent);
-      animation: pulse 3.5s ease-in-out infinite;
-      transition: transform .4s ease, border-radius .4s ease;
+      color: white; font-size: 3.5rem; font-weight: 700;
+      box-shadow: 0 10px 40px var(--accent-soft);
+      position: relative;
+      transition: transform 0.4s ease, border-radius 0.4s ease;
+      user-select: none;
+    }
+    
+    /* Subtle pulse ring */
+    .avatar::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: inherit;
+      background: inherit;
+      opacity: 0.4;
+      filter: blur(15px);
+      z-index: -1;
+      animation: pulseRing 3s infinite;
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.4; }
+      50% { transform: scale(1.05); opacity: 0.2; }
+      100% { transform: scale(0.95); opacity: 0.4; }
     }
 
     .avatar:hover {
-      transform: scale(1.05);
-      border-radius: 30%;
+      transform: scale(1.05) rotate(3deg);
+      border-radius: 40%;
     }
 
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 35px var(--accent); }
-      50% { box-shadow: 0 0 90px var(--accent); }
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    
+    body.dark .hero h1 {
+       background: linear-gradient(135deg, #fff, var(--accent-light));
+       -webkit-background-clip: text;
+       -webkit-text-fill-color: transparent;
     }
 
-    section { padding: 120px 10%; }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    /* --- Sections General --- */
+    section {
+      padding: 100px 10%;
+      position: relative;
+    }
 
     h2 {
-      font-size: 2.6rem;
-      margin-bottom: 50px;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
       position: relative;
+      display: inline-block;
+      z-index: 1;
     }
 
     h2::after {
       content: '';
       position: absolute;
-      bottom: -12px; left: 0;
-      width: 70px; height: 4px;
-      background: var(--accent);
-      border-radius: 10px;
+      bottom: 8px; left: 0;
+      width: 100%; height: 12px;
+      background: var(--accent-soft);
+      z-index: -1;
+      transform: skewX(-15deg);
     }
 
+    /* --- Grid System --- */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
     }
 
+    /* --- Cards --- */
     .card {
       background: var(--card);
-      padding: 38px;
+      padding: 35px;
       border-radius: 24px;
       box-shadow: var(--shadow);
-      transition: transform .4s ease, box-shadow .4s ease;
+      border: 1px solid var(--border);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
-      transform: translateY(-14px) scale(1.03);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px var(--shadow);
+      border-color: var(--accent-soft);
     }
 
-    /* Skills bars */
-    .skill {
-      margin-bottom: 20px;
-    }
-
-    .skill span {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .bar {
+    /* --- Skills --- */
+    .skill-item { margin-bottom: 1.2rem; }
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.9rem; font-weight: 500; }
+    
+    .progress-track {
       height: 8px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(128,128,128,0.1);
       border-radius: 10px;
       overflow: hidden;
-      margin-top: 6px;
     }
-
-    .bar div {
+    
+    .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), #c5b3ff);
-      animation: grow 2s ease forwards;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 10px;
+      width: 0; /* Animated via JS */
+      transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    @keyframes grow {
-      from { width: 0; }
-      to { width: var(--w); }
-    }
-
+    /* --- Timeline --- */
     .timeline {
-      border-left: 4px solid var(--accent);
-      padding-left: 40px;
+      border-left: 3px solid var(--border);
+      margin-left: 10px;
     }
 
-    .event {
+    .timeline-item {
+      padding-left: 40px;
       margin-bottom: 50px;
       position: relative;
-      color: var(--muted);
     }
 
-    .event::before {
+    .timeline-item::before {
       content: '';
       position: absolute;
-      left: -52px; top: 6px;
-      width: 18px; height: 18px;
-      background: var(--accent);
+      left: -9px; top: 0;
+      width: 15px; height: 15px;
+      background: var(--bg);
+      border: 3px solid var(--accent);
       border-radius: 50%;
+      transition: background 0.3s;
+    }
+    
+    .timeline-item:hover::before {
+      background: var(--accent);
     }
 
+    .timeline-date { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 5px; display: block; }
+    .timeline-content h3 { margin-bottom: 8px; }
+    .timeline-content p { color: var(--muted); font-size: 0.95rem; }
+
+    /* --- Projects Specific Fixes --- */
+    
+    /* 1. Style the Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 15px 0 25px 0;
+    }
+
+    .tags span {
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.3s;
+    }
+    
+    .tags span:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* 2. Project Image Placeholder */
+    .project-image {
+      height: 140px;
+      background: linear-gradient(135deg, var(--bg), var(--accent-soft));
+      border-radius: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-image::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%);
+      transition: 0.5s;
+    }
+    
+    .card:hover .project-image::after {
+      transform: translateX(100%);
+    }
+
+    .project-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+    .project-card p { color: var(--muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 20px; }
+
+    /* 3. Button Style (Fix for GitHub Link) */
+    .actions {
+      margin-top: auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      background: var(--card);
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      width: 100%; /* Full width inside card */
+    }
+
+    /* Primary button style override if needed, 
+       but for GitHub a clean button works best */
+    .btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px var(--accent-soft);
+    }
+
+    /* --- Footer --- */
     footer {
       text-align: center;
-      padding: 70px 10%;
+      padding: 60px 20px;
       color: var(--muted);
-      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* --- Scroll Animation Classes --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
     }
 
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger delays for grids */
+    .grid .card:nth-child(1) { transition-delay: 0.1s; }
+    .grid .card:nth-child(2) { transition-delay: 0.2s; }
+    .grid .card:nth-child(3) { transition-delay: 0.3s; }
+
+    /* --- Responsive --- */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.6rem; }
-      section { padding: 90px 6%; }
+      h2 { font-size: 2rem; }
+      section { padding: 80px 6%; }
+      .hero h1 { font-size: 2.5rem; }
+      .toggle { top: 15px; left: 15px; padding: 8px 16px; }
     }
   </style>
 </head>
@@ -220,110 +392,246 @@
 
 <div class="bg-anim"></div>
 
-<div class="toggle" onclick="toggleTheme()" id="toggle">🌙 Dark</div>
+<!-- Theme Toggle -->
+<div class="toggle" onclick="toggleTheme()" id="toggle">
+  <span class="icon">🌙</span> <span id="mode-text">Dark</span>
+</div>
 
 <header>
-  <div class="hero">
+  <div class="hero-content">
     <div class="avatar">S</div>
     <h1>Shirsh</h1>
     <p>Python Developer • AI Builder • System Optimizer</p>
   </div>
 </header>
 
-<section>
+<!-- About Section -->
+<section class="reveal">
   <h2>About Me</h2>
   <div class="card">
-    I specialize in building efficient, reliable, and visually clean software systems. My work focuses on offline AI assistants, automation tools, and performance-optimized applications that remain usable even on low-end hardware.
+    <p style="font-size: 1.1rem; color: var(--muted);">
+      I specialize in building efficient, reliable, and visually clean software systems. My work focuses on <strong>offline AI assistants</strong>, <strong>automation tools</strong>, and <strong>performance-optimized applications</strong> that remain usable even on low-end hardware. I bridge the gap between complex backend logic and modern user interface design.
+    </p>
   </div>
 </section>
 
-<section>
+<!-- What I Do Section -->
+<section class="reveal">
   <h2>What I Do</h2>
   <div class="grid">
-    <div class="card">AI assistants with voice interaction, GUI, and offline execution</div>
-    <div class="card">Python applications inspired by modern UI & Fluent Design</div>
-    <div class="card">Game development with structured logic and progression systems</div>
-    <div class="card">Automation tools for productivity and system-level control</div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">🤖</div>
+      <h3>Offline AI Assistants</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">
+        Voice-enabled assistants with GUI execution and rule-based logic running locally.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">🎨</div>
+      <h3>Modern UI Design</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">
+        Python applications inspired by Fluent Design and Glassmorphism principles.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">🎮</div>
+      <h3>Game Logic</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">
+        Structured game development with progression systems and optimized loops.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">⚡</div>
+      <h3>System Automation</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">
+        Tools for productivity scripting and system-level control to reduce manual workload.
+      </p>
+    </div>
   </div>
 </section>
 
-<section>
+<!-- Skills Section -->
+<section class="reveal">
   <h2>Core Skills</h2>
   <div class="card">
-    <div class="skill"><span>Python</span><div class="bar"><div style="--w:90%"></div></div></div>
-    <div class="skill"><span>AI / Automation</span><div class="bar"><div style="--w:85%"></div></div></div>
-    <div class="skill"><span>GUI & UI Design</span><div class="bar"><div style="--w:80%"></div></div></div>
-    <div class="skill"><span>Performance Optimization</span><div class="bar"><div style="--w:75%"></div></div></div>
+    <div class="skill-item">
+      <div class="skill-header"><span>Python</span> <span>90%</span></div>
+      <div class="progress-track"><div class="progress-fill" data-width="90%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span>AI / Automation</span> <span>85%</span></div>
+      <div class="progress-track"><div class="progress-fill" data-width="85%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span>GUI & UI Design</span> <span>80%</span></div>
+      <div class="progress-track"><div class="progress-fill" data-width="80%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span>Performance Optimization</span> <span>75%</span></div>
+      <div class="progress-track"><div class="progress-fill" data-width="75%"></div></div>
+    </div>
   </div>
 </section>
 
-<section>
+<!-- Projects Section (Merged Grid & Styled) -->
+<section class="reveal">
   <h2>Projects</h2>
-  <div class="grid projects">
-
+  <div class="grid">
+    
+    <!-- Project 1 -->
     <div class="card project-card">
       <div class="project-image">AI</div>
       <h3>Offline AI Assistant</h3>
       <div class="tags">
-        <span>Python </span><span> AI </span><span> Offline </span>
+        <span>Python</span>
+        <span>AI</span>
+        <span>Offline</span>
+        <span>GUI</span>
       </div>
       <p>
-        A rule-based chatbot to act as a navigator
+        A robust rule-based chatbot designed to act as a system navigator. Executes local commands without internet dependency.
       </p>
       <div class="actions">
-        <a href="nav.html">GitHub</a>
+        <a href="nav.html" class="btn">View GitHub</a>
       </div>
     </div>
 
-  </div>
-<div class="grid projects">
-
+    <!-- Project 2 -->
     <div class="card project-card">
-      <div class="project-image">AI</div>
+      <div class="project-image">Web</div>
       <h3>A.I. Showcase For School</h3>
       <div class="tags">
-        <span> HTML </span><span> Web Dev </span><span>Offline</span>
+        <span>HTML/CSS</span>
+        <span>Web Dev</span>
+        <span>Offline</span>
+        <span>JS</span>
       </div>
       <p>
-        A rule-based chatbot to act as a navigator
+        A web-based demonstration of an Artificial Intelligence interface, optimized for educational showcases.
       </p>
       <div class="actions">
-        <a href="web.html">GitHub</a>
+        <a href="web.html" class="btn">View GitHub</a>
       </div>
+    </div>
+
+    <!-- Placeholder for symmetry if needed, or can be removed -->
+    <div class="card project-card" style="border-style: dashed; justify-content: center; align-items: center; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 10px;">🚧</div>
+        <h3>More Coming Soon</h3>
+        <p>I'm constantly building new tools. Check back later for updates!</p>
     </div>
 
   </div>
 </section>
 
-<section>
+<!-- Journey Section -->
+<section class="reveal">
   <h2>Journey</h2>
   <div class="timeline">
-    <div class="event">Built strong foundations in Python and automation</div>
-    <div class="event">Developed AI assistants with voice, GUI, and offline logic</div>
-    <div class="event">Focused on low-end system optimization and efficiency</div>
-    <div class="event">Refined UI/UX and presentation-quality design</div>
+    <div class="timeline-item">
+      <span class="timeline-date">Foundation</span>
+      <div class="timeline-content">
+        <h3>The Start</h3>
+        <p>Built strong foundations in Python and automation scripting.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-date">Development</span>
+      <div class="timeline-content">
+        <h3>AI Integration</h3>
+        <p>Developed AI assistants with voice recognition, GUI interfaces, and offline logic processing.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-date">Optimization</span>
+      <div class="timeline-content">
+        <h3>Performance Focus</h3>
+        <p>Focused heavily on low-end system optimization and execution efficiency.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-date">Present</span>
+      <div class="timeline-content">
+        <h3>UI/UX Polish</h3>
+        <p>Refining design skills to create presentation-quality applications.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
-  Designed & Built by Shirsh • Portfolio Presentation
+  <p>Designed & Built by <strong>Shirsh</strong> • © <span id="year"></span></p>
 </footer>
 
 <script>
+  // --- 1. Theme Toggle Logic ---
   const toggle = document.getElementById('toggle');
+  const icon = toggle.querySelector('.icon');
+  const text = document.getElementById('mode-text');
 
   function toggleTheme() {
     document.body.classList.toggle('dark');
-    const dark = document.body.classList.contains('dark');
-    toggle.textContent = dark ? '🌙 Dark' : '☀️ Light';
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    const isDark = document.body.classList.contains('dark');
+    
+    // Update button text/icon
+    icon.textContent = isDark ? '🌙' : '☀️';
+    text.textContent = isDark ? 'Dark' : 'Light';
+    
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }
 
-  // Persist theme
+  // Persist theme on load
   if (localStorage.getItem('theme') === 'light') {
     document.body.classList.remove('dark');
-    toggle.textContent = '☀️ Light';
+    icon.textContent = '☀️';
+    text.textContent = 'Light';
   }
+
+  // Set Copyright Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // --- 2. Scroll Animations (Intersection Observer) ---
+  const observerOptions = {
+    threshold: 0.1, // Trigger when 10% of the element is visible
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        
+        // If the section contains progress bars, animate them
+        const progressBars = entry.target.querySelectorAll('.progress-fill');
+        progressBars.forEach(bar => {
+          bar.style.width = bar.getAttribute('data-width');
+        });
+
+        // Stop observing once visible (prevents re-animating when scrolling up)
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // --- 3. 3D Tilt Effect on Avatar (Interaction) ---
+  const avatar = document.querySelector('.avatar');
+  
+  document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth < 768) return; // Disable on mobile
+    
+    const x = (window.innerWidth / 2 - e.pageX) / 25;
+    const y = (window.innerHeight / 2 - e.pageY) / 25;
+    
+    avatar.style.transform = `scale(1.05) rotateY(${x}deg) rotateX(${y}deg)`;
+  });
+
+  // Reset avatar when mouse leaves window
+  document.addEventListener('mouseleave', () => {
+    avatar.style.transform = `scale(1) rotateY(0deg) rotateX(0deg)`;
+  });
+
 </script>
 
 </body>
