@@ -7,8 +7,8 @@
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Orbitron:wght@500;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,12 +17,17 @@
         /* --- CSS VARIABLES & RESET --- */
         :root {
             --bg-color: #0f172a;
-            --bg-secondary: #1e293b;
+            --bg-secondary: #162033;
             --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #8b5cf6;
-            --accent-gradient: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            --text-secondary: #e2e8f0;
+            --text-dark: #1e293b; /* For light cards */
+            
+            /* Vibrant Gradients */
+            --grad-cyan-blue: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            --grad-purple-pink: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --grad-orange-yellow: linear-gradient(135deg, #f97316 0%, #eab308 100%);
+            --grad-green-teal: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+            
             --glass-bg: rgba(30, 41, 59, 0.7);
             --glass-border: 1px solid rgba(255, 255, 255, 0.1);
             --transition: all 0.3s ease;
@@ -48,7 +53,7 @@
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Orbitron', sans-serif; /* Futuristic font for headings */
+            font-family: 'Orbitron', sans-serif;
             color: var(--text-primary);
             margin-bottom: 1rem;
         }
@@ -80,7 +85,7 @@
         }
 
         .text-gradient {
-            background: var(--accent-gradient);
+            background: var(--grad-cyan-blue);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -97,48 +102,40 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
         }
 
         .btn-primary {
-            background: var(--accent-gradient);
+            background: var(--grad-cyan-blue);
             color: white;
             box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
         }
 
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--accent-cyan);
-            color: var(--accent-cyan);
+            border: 2px solid #ec4899; /* Pink border for contrast */
+            color: #ec4899;
         }
 
         .btn-outline:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-color);
+            background: #ec4899;
+            color: white;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--accent-gradient);
-            margin: 10px auto 0;
-            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .section-subtitle {
@@ -148,33 +145,34 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            font-size: 1.1rem;
         }
 
         /* --- MODAL STYLES --- */
         .modal {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
             z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Black with opacity */
+            background-color: rgba(0, 0, 0, 0.85);
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
-            background: var(--bg-secondary);
+            background: #1e293b;
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 20px;
             width: 90%;
             max-width: 700px;
             position: relative;
-            border: 1px solid var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -183,31 +181,23 @@
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
             cursor: pointer;
             color: var(--text-secondary);
             transition: 0.2s;
+            z-index: 10;
         }
 
         .close-modal:hover {
-            color: white;
+            color: #ec4899;
+            transform: rotate(90deg);
         }
 
         .modal-body h3 {
-            color: var(--accent-cyan);
-        }
-
-        .video-placeholder {
-            width: 100%;
-            height: 300px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            border-radius: 10px;
-            margin: 20px 0;
+            background: var(--grad-purple-pink);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* --- NAVIGATION --- */
@@ -216,12 +206,13 @@
             top: 0;
             width: 100%;
             height: var(--nav-height);
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
 
         nav {
@@ -248,28 +239,22 @@
         .nav-links a {
             font-size: 0.95rem;
             font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
             transition: var(--transition);
-            position: relative;
         }
 
+        /* Colorful Nav Hover */
         .nav-links a:hover, .nav-links a.active {
-            color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-cyan);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links a:nth-child(1):hover { background: rgba(6, 182, 212, 0.2); box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
+        .nav-links a:nth-child(2):hover { background: rgba(139, 92, 246, 0.2); box-shadow: 0 0 10px rgba(139, 92, 246, 0.3); }
+        .nav-links a:nth-child(3):hover { background: rgba(249, 115, 22, 0.2); box-shadow: 0 0 10px rgba(249, 115, 22, 0.3); }
+        .nav-links a:nth-child(4):hover { background: rgba(16, 185, 129, 0.2); box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
 
         .menu-toggle {
             display: none;
@@ -286,8 +271,11 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.1), transparent 40%),
-                        radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.1), transparent 40%);
+            /* Colorful Mesh Background */
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.05) 0%, transparent 60%);
             padding-top: var(--nav-height);
         }
 
@@ -295,6 +283,7 @@
             font-size: 4rem;
             line-height: 1.1;
             margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
         }
 
         .hero-content p {
@@ -320,41 +309,74 @@
         }
 
         .feature-card {
-            background: var(--bg-secondary);
             padding: 30px;
-            border-radius: 12px;
-            border: var(--glass-border);
-            transition: var(--transition);
+            border-radius: 20px;
             text-align: left;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            border: none;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-cyan);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
         }
 
+        /* Distinct Colorful Backgrounds for Feature Cards */
+        .feature-card:nth-child(1) { background: var(--grad-cyan-blue); }
+        .feature-card:nth-child(2) { background: var(--grad-purple-pink); }
+        .feature-card:nth-child(3) { background: var(--grad-orange-yellow); }
+        .feature-card:nth-child(4) { background: var(--grad-green-teal); }
+
         .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent-cyan);
+            font-size: 3rem;
             margin-bottom: 20px;
+            opacity: 0.9;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .feature-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .feature-card a {
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: 0.2s;
+        }
+        
+        .feature-card a:hover {
+            opacity: 0.8;
         }
 
         /* --- SDG KNOWLEDGE --- */
+        #sdg-section {
+            background-color: var(--bg-secondary);
+        }
+
         .sdg-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
             justify-content: center;
         }
 
         .sdg-card {
-            width: 200px;
-            height: 200px;
-            border-radius: 15px;
+            width: 220px;
+            height: 220px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -362,46 +384,34 @@
             color: white;
             font-weight: bold;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             cursor: pointer;
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .sdg-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            transition: var(--transition);
-            z-index: 1;
-        }
-
-        .sdg-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .sdg-card:hover .sdg-overlay {
-            background: rgba(0,0,0,0.3);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.3);
         }
 
         .sdg-card:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(2deg);
+            z-index: 10;
         }
 
-        /* SDG Colors */
-        .sdg-2 { background-color: #DDA63A; } /* Zero Hunger */
-        .sdg-3 { background-color: #4C9F38; } /* Good Health */
-        .sdg-4 { background-color: #C5192D; } /* Quality Education */
-        .sdg-8 { background-color: #A21942; } /* Decent Work */
-        .sdg-9 { background-color: #FD6925; } /* Industry Innovation */
-        .sdg-11 { background-color: #FD9D24; } /* Sustainable Cities */
-        .sdg-13 { background-color: #3F7E44; } /* Climate Action */
+        /* SDG Specific Colors (Vibrant) */
+        .sdg-2 { background: #DDA63A; box-shadow: 0 0 20px rgba(221, 166, 58, 0.4); }
+        .sdg-3 { background: #4C9F38; box-shadow: 0 0 20px rgba(76, 159, 56, 0.4); }
+        .sdg-4 { background: #C5192D; box-shadow: 0 0 20px rgba(197, 25, 45, 0.4); }
+        .sdg-8 { background: #A21942; box-shadow: 0 0 20px rgba(162, 25, 66, 0.4); }
+        .sdg-9 { background: #FD6925; box-shadow: 0 0 20px rgba(253, 105, 37, 0.4); }
+        .sdg-11 { background: #FD9D24; box-shadow: 0 0 20px rgba(253, 157, 36, 0.4); }
+        .sdg-13 { background: #3F7E44; box-shadow: 0 0 20px rgba(63, 126, 68, 0.4); }
 
-        /* --- TOOLS & PYTHON LIBS --- */
+        .sdg-content i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        /* --- TOOLS & PYTHON LIBS (UPDATED FOR COLORFUL BG) --- */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -409,138 +419,186 @@
         }
 
         .tool-card {
-            background: var(--bg-secondary);
-            border: var(--glass-border);
-            border-radius: 10px;
-            padding: 25px;
+            padding: 30px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             gap: 20px;
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle light border */
+            color: #fff; /* Text color set to white */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
+        /* Individual Colorful Backgrounds */
+        .tool-card:nth-child(1) { background: linear-gradient(135deg, #FF9F43, #EE5A24); } /* Deep Orange */
+        .tool-card:nth-child(2) { background: linear-gradient(135deg, #FF6B6B, #C23616); } /* Deep Red */
+        .tool-card:nth-child(3) { background: linear-gradient(135deg, #FD79A8, #E84393); } /* Deep Pink */
+        .tool-card:nth-child(4) { background: linear-gradient(135deg, #54A0FF, #2E86DE); } /* Deep Blue */
+        .tool-card:nth-child(5) { background: linear-gradient(135deg, #00D2D3, #00A8A8); } /* Deep Teal */
+        .tool-card:nth-child(6) { background: linear-gradient(135deg, #1DD1A1, #10AC84); } /* Deep Green */
+
         .tool-card:hover {
-            background: rgba(30, 41, 59, 0.9);
-            border-color: var(--accent-purple);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.4);
         }
 
         .tool-icon {
-            font-size: 2rem;
-            color: var(--accent-purple);
+            font-size: 2.5rem;
+            color: #fff !important; /* Force icons to white for contrast */
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .tool-card h3 {
+            margin-bottom: 5px;
+            color: #fff; /* Explicit white */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .tool-card p {
+            font-size: 0.9rem; 
+            color: rgba(255, 255, 255, 0.9); /* High contrast light gray for description */
         }
 
         /* --- CHATBOT SECTION --- */
         .chatbot-wrapper {
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            border: var(--glass-border);
+            background: #0f172a;
+            border-radius: 20px;
             overflow: hidden;
             max-width: 500px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            height: 500px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            height: 550px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .chat-header {
-            background: var(--accent-gradient);
-            padding: 15px;
+            /* Rainbow Gradient Header */
+            background: linear-gradient(90deg, #06b6d4, #8b5cf6, #ec4899);
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .chat-header h4 {
-            margin: 0;
-            font-size: 1rem;
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b5cf6;
         }
+
+        .chat-header h4 { margin: 0; font-size: 1.1rem; }
 
         .chat-window {
             flex: 1;
-            padding: 15px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+            background-color: #1e293b;
         }
 
         .message {
             max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-size: 0.9rem;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.4;
             animation: fadeIn 0.3s ease;
         }
 
         .bot-msg {
-            background: rgba(255, 255, 255, 0.1);
+            background: #334155;
+            color: white;
             align-self: flex-start;
-            border-bottom-left-radius: 0;
+            border-bottom-left-radius: 4px;
         }
 
         .user-msg {
-            background: var(--accent-cyan);
-            color: var(--bg-color);
+            background: var(--grad-purple-pink);
+            color: white;
             align-self: flex-end;
-            border-bottom-right-radius: 0;
+            border-bottom-right-radius: 4px;
             font-weight: 600;
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.3);
         }
 
         .chat-input-area {
-            padding: 15px;
-            border-top: var(--glass-border);
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
             display: flex;
             gap: 10px;
+            background: #0f172a;
         }
 
         .chat-input-area input {
             flex: 1;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #334155;
-            background: #0f172a;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 2px solid #334155;
+            background: #1e293b;
             color: white;
             outline: none;
+            transition: 0.3s;
+        }
+
+        .chat-input-area input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
         }
 
         .chat-input-area button {
-            background: var(--accent-purple);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--grad-cyan-blue);
             color: white;
             border: none;
-            padding: 0 15px;
-            border-radius: 5px;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: var(--transition);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .chat-input-area button:hover {
-            background: #7c3aed;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
         }
 
         /* --- AI SHOWCASE SECTION --- */
-        .showcase-intro {
-            text-align: center;
-            margin-bottom: 50px;
+        #ai-showcase {
+            background-color: #111827;
         }
 
-        /* Featured Project (Large Layout) */
         .project-showcase {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 50px;
             align-items: center;
-            background: rgba(255,255,255,0.02);
-            border-radius: 20px;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 25px;
             padding: 40px;
-            border: var(--glass-border);
             margin-bottom: 80px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .project-image {
             position: relative;
+            border-radius: 15px;
             overflow: hidden;
-            border-radius: 12px;
+            border: 3px solid #8b5cf6; /* Purple border */
         }
 
         .project-image img {
@@ -553,27 +611,26 @@
             transform: scale(1.05);
         }
 
-        .project-content h3 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
         .project-tags {
             display: flex;
             gap: 10px;
             margin: 20px 0;
+            flex-wrap: wrap;
         }
 
         .tag {
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--accent-cyan);
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            font-weight: 700;
+            text-transform: uppercase;
         }
+        
+        /* Colorful Tags */
+        .tag:nth-child(1) { background: rgba(236, 72, 153, 0.2); color: #ec4899; border: 1px solid #ec4899; }
+        .tag:nth-child(2) { background: rgba(6, 182, 212, 0.2); color: #06b6d4; border: 1px solid #06b6d4; }
+        .tag:nth-child(3) { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; border: 1px solid #8b5cf6; }
 
-        /* Grid for other innovations */
         .innovation-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -581,41 +638,42 @@
         }
 
         .innovation-card {
-            background: var(--bg-secondary);
-            border-radius: 15px;
+            background: #1e293b;
+            border-radius: 20px;
             overflow: hidden;
-            border: var(--glass-border);
             transition: var(--transition);
             display: flex;
             flex-direction: column;
+            border: 1px solid #334155;
         }
 
         .innovation-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-purple);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+            border-color: #06b6d4;
         }
 
         .innovation-img {
-            height: 180px;
+            height: 200px;
             width: 100%;
             object-fit: cover;
         }
 
         .innovation-body {
-            padding: 20px;
+            padding: 25px;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
         .innovation-body h3 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: white;
         }
 
         .innovation-body p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            font-size: 0.95rem;
+            color: #94a3b8;
             margin-bottom: 20px;
             flex: 1;
         }
@@ -623,14 +681,13 @@
         /* --- FOOTER --- */
         footer {
             background: #020617;
-            padding: 30px 0;
+            padding: 40px 0;
             text-align: center;
-            border-top: var(--glass-border);
-            margin-top: 80px;
+            border-top: 1px solid #1e293b;
         }
 
         footer p {
-            color: var(--text-secondary);
+            color: #64748b;
             font-size: 0.9rem;
         }
 
@@ -642,34 +699,27 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
+            .hero-content h1 { font-size: 2.5rem; }
             
             .nav-links {
                 position: fixed;
                 top: var(--nav-height);
                 right: -100%;
-                width: 70%;
+                width: 80%;
                 height: calc(100vh - var(--nav-height));
-                background: var(--bg-secondary);
+                background: #0f172a;
                 flex-direction: column;
                 padding: 40px;
                 transition: 0.4s ease;
                 box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+                border-left: 1px solid #334155;
             }
 
-            .nav-links.active {
-                right: 0;
-            }
+            .nav-links.active { right: 0; }
 
-            .menu-toggle {
-                display: block;
-            }
+            .menu-toggle { display: block; }
 
-            .project-showcase {
-                grid-template-columns: 1fr;
-            }
+            .project-showcase { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -680,7 +730,7 @@
         <div class="container">
             <nav>
                 <a href="#home" class="logo">
-                    <i class="fa-solid fa-microchip" style="color: var(--accent-cyan);"></i>
+                    <i class="fa-solid fa-microchip" style="color: #06b6d4;"></i>
                     <span>DPS <span class="text-gradient">A.I. Showcase</span></span>
                 </a>
                 <div class="menu-toggle" id="mobile-menu">
@@ -714,43 +764,39 @@
         <section id="about" class="section-padding">
             <div class="container">
                 <h2 class="section-title">About Us</h2>
-                <p class="section-subtitle">DPS A.I. Showcase is a platform dedicated to democratizing Artificial Intelligence knowledge, bridging the gap between technology and societal impact.</p>
+                <p class="section-subtitle">DPS A.I. Showcase is a platform dedicated to democratizing Artificial Intelligence knowledge.</p>
 
                 <div class="features-grid">
                     <div class="feature-card">
                         <i class="fa-solid fa-earth-americas feature-icon"></i>
                         <h3>SDG Knowledge</h3>
                         <p>Understanding how AI contributes to the UN Sustainable Development Goals.</p>
-                        <br>
-                        <a href="#sdg-section" style="color: var(--accent-cyan); font-size: 0.9rem;">Learn More →</a>
+                        <a href="#sdg-section">Learn More →</a>
                     </div>
                     <div class="feature-card">
                         <i class="fa-solid fa-comments feature-icon"></i>
                         <h3>Rule-Based Chatbot</h3>
                         <p>Experience our interactive decision-making assistant built for quick queries.</p>
-                        <br>
-                        <a href="#chatbot-section" style="color: var(--accent-cyan); font-size: 0.9rem;">Try It Now →</a>
+                        <a href="#chatbot-section">Try It Now →</a>
                     </div>
                     <div class="feature-card">
                         <i class="fa-brands fa-python feature-icon"></i>
                         <h3>Python Libraries</h3>
                         <p>A curated showcase of powerful Python libraries fueling modern AI.</p>
-                        <br>
-                        <a href="#tools" style="color: var(--accent-cyan); font-size: 0.9rem;">View Libraries →</a>
+                        <a href="#tools">View Libraries →</a>
                     </div>
                     <div class="feature-card">
                         <i class="fa-solid fa-rocket feature-icon"></i>
                         <h3>Indian Startups</h3>
                         <p>Spotlight on the most innovative AI startups emerging from India.</p>
-                        <br>
-                        <a href="#ai-showcase" style="color: var(--accent-cyan); font-size: 0.9rem;">See Showcase →</a>
+                        <a href="#ai-showcase">See Showcase →</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SDG Knowledge Section -->
-        <section id="sdg-section" class="section-padding" style="background-color: #162033;">
+        <section id="sdg-section" class="section-padding">
             <div class="container">
                 <h2 class="section-title">AI for SDGs</h2>
                 <p class="section-subtitle">Artificial Intelligence is a key accelerator for achieving global goals. Click a goal to see AI's impact.</p>
@@ -758,63 +804,56 @@
                 <div class="sdg-container">
                     <!-- SDG 2: Zero Hunger -->
                     <div class="sdg-card sdg-2" onclick="openModal('Zero Hunger (SDG 2)', '<p><strong>AI Impact:</strong> AI-driven precision agriculture helps optimize crop yields and reduce food waste. Predictive models analyze soil data and weather patterns to advise farmers on the best times to sow and harvest.</p>')">
-                        <div class="sdg-overlay"></div>
                         <div class="sdg-content">
-                            <i class="fa-solid fa-wheat-awn fa-2x"></i>
+                            <i class="fa-solid fa-wheat-awn"></i>
                             <p>Zero Hunger</p>
                         </div>
                     </div>
 
                     <!-- SDG 3: Good Health -->
                     <div class="sdg-card sdg-3" onclick="openModal('Good Health (SDG 3)', '<p><strong>AI Impact:</strong> AI diagnostics enable early disease detection and remote patient monitoring. Algorithms analyze medical imaging (X-rays, MRIs) to identify anomalies faster than human doctors in some cases.</p>')">
-                        <div class="sdg-overlay"></div>
                         <div class="sdg-content">
-                            <i class="fa-solid fa-heart-pulse fa-2x"></i>
+                            <i class="fa-solid fa-heart-pulse"></i>
                             <p>Good Health</p>
                         </div>
                     </div>
 
                     <!-- SDG 4: Quality Education -->
                     <div class="sdg-card sdg-4" onclick="openModal('Quality Education (SDG 4)', '<p><strong>AI Impact:</strong> Personalized learning platforms are revolutionizing education access in rural India. Adaptive learning systems tailor educational content to the individual pace of the student.</p>')">
-                        <div class="sdg-overlay"></div>
                         <div class="sdg-content">
-                            <i class="fa-solid fa-book-open fa-2x"></i>
+                            <i class="fa-solid fa-book-open"></i>
                             <p>Quality Education</p>
                         </div>
                     </div>
 
                     <!-- SDG 8: Decent Work -->
-                    <div class="sdg-card sdg-8" onclick="openModal('Decent Work &amp; Growth (SDG 8)', '<p><strong>AI Impact:</strong> Predictive analytics are creating new job markets and optimizing workforce management. AI tools are automating repetitive tasks, allowing humans to focus on creative work.</p>')">
-                        <div class="sdg-overlay"></div>
+                    <div class="sdg-card sdg-8" onclick="openModal('Decent Work & Growth (SDG 8)', '<p><strong>AI Impact:</strong> Predictive analytics are creating new job markets and optimizing workforce management. AI tools are automating repetitive tasks, allowing humans to focus on creative work.</p>')">
                         <div class="sdg-content">
-                            <i class="fa-solid fa-briefcase fa-2x"></i>
-                            <p>Decent Work &amp; Growth</p>
+                            <i class="fa-solid fa-briefcase"></i>
+                            <p>Decent Work</p>
                         </div>
                     </div>
 
                     <!-- SDG 9: Industry Innovation -->
-                    <div class="sdg-card sdg-9" onclick="openModal('Industry &amp; Innovation (SDG 9)', '<p><strong>AI Impact:</strong> Smart manufacturing and IoT integration are driving industrial innovation. Robots and AI systems work alongside humans to increase efficiency and safety on the production line.</p>')">
-                        <div class="sdg-overlay"></div>
+                    <div class="sdg-card sdg-9" onclick="openModal('Industry & Innovation (SDG 9)', '<p><strong>AI Impact:</strong> Smart manufacturing and IoT integration are driving industrial innovation. Robots and AI systems work alongside humans to increase efficiency and safety on the production line.</p>')">
                         <div class="sdg-content">
-                            <i class="fa-solid fa-industry fa-2x"></i>
-                            <p>Industry &amp; Innovation</p>
+                            <i class="fa-solid fa-industry"></i>
+                            <p>Industry</p>
                         </div>
                     </div>
 
                     <!-- SDG 11: Sustainable Cities -->
                     <div class="sdg-card sdg-11" onclick="openModal('Sustainable Cities (SDG 11)', '<p><strong>AI Impact:</strong> Smart traffic management and waste sorting systems are making cities more sustainable. AI optimizes traffic light timings to reduce congestion and pollution.</p>')">
-                        <div class="sdg-overlay"></div>
                         <div class="sdg-content">
-                            <i class="fa-solid fa-city fa-2x"></i>
+                            <i class="fa-solid fa-city"></i>
                             <p>Sustainable Cities</p>
                         </div>
                     </div>
 
                     <!-- SDG 13: Climate Action -->
                     <div class="sdg-card sdg-13" onclick="openModal('Climate Action (SDG 13)', '<p><strong>AI Impact:</strong> Climate modeling and smart energy grids are crucial for fighting climate change. AI helps predict extreme weather events and optimizes renewable energy distribution.</p>')">
-                        <div class="sdg-overlay"></div>
                         <div class="sdg-content">
-                            <i class="fa-solid fa-leaf fa-2x"></i>
+                            <i class="fa-solid fa-leaf"></i>
                             <p>Climate Action</p>
                         </div>
                     </div>
@@ -830,10 +869,12 @@
                 
                 <div class="chatbot-wrapper">
                     <div class="chat-header">
-                        <i class="fa-solid fa-robot"></i>
+                        <div class="chat-avatar">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
                         <div>
                             <h4>DPS Assistant</h4>
-                            <span style="font-size: 0.75rem; opacity: 0.8;">Online</span>
+                            <span style="font-size: 0.8rem; opacity: 0.9; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">Online</span>
                         </div>
                     </div>
                     <div class="chat-window" id="chat-window">
@@ -848,52 +889,52 @@
         </section>
 
         <!-- Tools Section -->
-        <section id="tools" class="section-padding" style="background-color: #162033;">
+        <section id="tools" class="section-padding" style="background-color: #0b1120;">
             <div class="container">
-                <h2 class="section-title">AI Tools &amp; Libraries</h2>
+                <h2 class="section-title">AI Tools & Libraries</h2>
                 <p class="section-subtitle">The essential Python libraries powering the next generation of Artificial Intelligence.</p>
 
                 <div class="tools-grid">
                     <a href="https://www.tensorflow.org/" target="_blank" class="tool-card">
-                        <i class="fa-brands fa-python tool-icon"></i>
+                        <i class="fa-solid fa-cubes tool-icon"></i>
                         <div>
                             <h3>TensorFlow</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">An end-to-end open source platform for machine learning.</p>
+                            <p>End-to-end open source platform for machine learning.</p>
                         </div>
                     </a>
                     <a href="https://pytorch.org/" target="_blank" class="tool-card">
                         <i class="fa-solid fa-fire tool-icon"></i>
                         <div>
                             <h3>PyTorch</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Tensors and Dynamic neural networks in Python with strong GPU acceleration.</p>
+                            <p>Tensors and Dynamic neural networks with strong GPU.</p>
                         </div>
                     </a>
                     <a href="https://keras.io/" target="_blank" class="tool-card">
                         <i class="fa-solid fa-brain tool-icon"></i>
                         <div>
                             <h3>Keras</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Deep Learning for humans. High-level neural networks API.</p>
+                            <p>Deep Learning for humans. High-level neural networks API.</p>
                         </div>
                     </a>
                     <a href="https://www.nltk.org/" target="_blank" class="tool-card">
                         <i class="fa-solid fa-language tool-icon"></i>
                         <div>
                             <h3>NLTK</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Leading platform for building Python programs to work with human language data.</p>
+                            <p>Platform for building Python programs with human language data.</p>
                         </div>
                     </a>
                     <a href="https://pandas.pydata.org/" target="_blank" class="tool-card">
-                        <i class="fa-solid fa-chart-line tool-icon"></i>
+                        <i class="fa-solid fa-chart-bar tool-icon"></i>
                         <div>
                             <h3>Pandas</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Fast, powerful, flexible and easy to use open source data analysis.</p>
+                            <p>Fast, powerful, flexible and easy to use open source data analysis.</p>
                         </div>
                     </a>
                     <a href="https://opencv.org/" target="_blank" class="tool-card">
                         <i class="fa-solid fa-eye tool-icon"></i>
                         <div>
                             <h3>OpenCV</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Library of programming functions mainly aimed at real-time computer vision.</p>
+                            <p>Library aimed at real-time computer vision.</p>
                         </div>
                     </a>
                 </div>
@@ -901,21 +942,21 @@
         </section>
 
         <!-- AI Showcase Section -->
-        <section id="ai-showcase" class="section-padding" style="background-color: #162033;">
+        <section id="ai-showcase" class="section-padding">
             <div class="container">
                 <h2 class="section-title">AI Showcase</h2>
                 <div class="showcase-intro">
                     <p class="section-subtitle">Featuring innovative projects and case studies from India's leading AI companies.</p>
                 </div>
 
-                <!-- Featured Project (Large Split View) -->
+                <!-- Featured Project -->
                 <div class="project-showcase">
                     <div class="project-image">
                         <img src="https://picsum.photos/seed/niramai/600/400" alt="Niramai Health Tech">
                     </div>
                     <div class="project-content">
-                        <h3>Featured: <span class="text-gradient">Niramai</span></h3>
-                        <p style="font-size: 1.1rem; color: var(--text-secondary);">
+                        <h3>Featured: <span style="color: #8b5cf6;">Niramai</span></h3>
+                        <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 15px;">
                             Niramai is a healthtech startup developing a novel, non-invasive, non-touch, non-radiation, breast cancer screening solution. They use Artificial Intelligence over Thermopgraphy images.
                         </p>
                         <div class="project-tags">
@@ -923,7 +964,7 @@
                             <span class="tag">Computer Vision</span>
                             <span class="tag">Deep Learning</span>
                         </div>
-                        <p style="margin-bottom: 25px; color: var(--text-secondary);">
+                        <p style="margin-bottom: 25px; color: #94a3b8;">
                             This solution is portable, low-cost, and can detect breast cancer at an early stage, addressing the critical gap in accessibility across semi-urban and rural India.
                         </p>
                         <div style="display: flex; gap: 15px;">
@@ -933,56 +974,50 @@
                     </div>
                 </div>
 
-                <h3 style="text-align: center; margin-bottom: 30px; font-size: 1.8rem;">More Innovations</h3>
+                <h3 style="text-align: center; margin-bottom: 40px; font-size: 1.8rem; color: #e2e8f0;">More Innovations</h3>
 
-                <!-- Additional Projects Grid -->
                 <div class="innovation-grid">
-                    <!-- Innovation 1: CropIn -->
                     <div class="innovation-card">
                         <img src="https://picsum.photos/seed/cropin/400/250" alt="CropIn Technology" class="innovation-img">
                         <div class="innovation-body">
                             <h3>CropIn Technology</h3>
-                            <div class="project-tags" style="margin-bottom: 10px;">
+                            <div class="project-tags" style="margin-bottom: 15px;">
                                 <span class="tag">AgriTech</span>
                                 <span class="tag">SaaS</span>
                             </div>
                             <p>CropIn provides intelligent farming solutions to enable data-driven farming. Their AI platform helps farmers monitor crop health and predict yields using satellite imagery.</p>
-                            <a href="https://cropin.com" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 16px;">Visit Site</a>
+                            <a href="https://cropin.com" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 20px; align-self: flex-start;">Visit Site</a>
                         </div>
                     </div>
 
-                    <!-- Innovation 2: Wysa -->
                     <div class="innovation-card">
                         <img src="https://picsum.photos/seed/wysa/400/250" alt="Wysa AI" class="innovation-img">
                         <div class="innovation-body">
                             <h3>Wysa</h3>
-                            <div class="project-tags" style="margin-bottom: 10px;">
+                            <div class="project-tags" style="margin-bottom: 15px;">
                                 <span class="tag">HealthTech</span>
                                 <span class="tag">NLP</span>
                             </div>
                             <p>Wysa is an AI-based emotionally intelligent chatbot for behavioral health. It helps users build resilience and manage mental well-being through evidence-based conversational AI.</p>
-                            <a href="https://wysa.io" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 16px;">Visit Site</a>
+                            <a href="https://wysa.io" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 20px; align-self: flex-start;">Visit Site</a>
                         </div>
                     </div>
 
-                    <!-- Innovation 3: Entropik -->
                     <div class="innovation-card">
                         <img src="https://picsum.photos/seed/entropik/400/250" alt="Entropik Tech" class="innovation-img">
                         <div class="innovation-body">
                             <h3>Entropik Tech</h3>
-                            <div class="project-tags" style="margin-bottom: 10px;">
+                            <div class="project-tags" style="margin-bottom: 15px;">
                                 <span class="tag">Consumer</span>
                                 <span class="tag">Emotion AI</span>
                             </div>
                             <p>Pioneers in Emotion AI, Entropik helps brands measure consumer emotions through facial coding, eye tracking, and voice tonality analysis.</p>
-                            <a href="https://entropik.tech" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 16px;">Visit Site</a>
+                            <a href="https://entropik.tech" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 8px 20px; align-self: flex-start;">Visit Site</a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
-
     </main>
 
     <footer>
@@ -994,14 +1029,14 @@
     <!-- The Modal Structure -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">×</span>
+            <span class="close-modal" onclick="closeModal()">&times;</span>
             <div id="modalBody" class="modal-body">
                 <!-- Content injected via JS -->
             </div>
         </div>
     </div>
 
-    <!-- JavaScript for Interactivity -->
+    <!-- JavaScript -->
     <script>
         // Mobile Menu Toggle
         const menuToggle = document.getElementById('mobile-menu');
@@ -1009,7 +1044,6 @@
 
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            // Toggle icon between bars and times (X)
             const icon = menuToggle.querySelector('i');
             if (navLinks.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
@@ -1020,7 +1054,7 @@
             }
         });
 
-        // Close mobile menu when a link is clicked
+        // Close mobile menu when link clicked
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -1034,14 +1068,12 @@
         const modal = document.getElementById("infoModal");
         const modalBody = document.getElementById("modalBody");
 
-        // Open general modal (for SDGs)
         function openModal(title, content) {
-            let htmlContent = `<h2>${title}</h2><hr style="border-color:var(--glass-border); margin: 10px 0;">${content}`;
+            let htmlContent = `<h2>${title}</h2><hr style="border-color:rgba(255,255,255,0.1); margin: 15px 0;">${content}`;
             modalBody.innerHTML = htmlContent;
             modal.style.display = "flex";
         }
 
-        // Open Case Study Modal
         function openCaseStudy(title, description) {
             let htmlContent = `
                 <h2>Case Study: ${title}</h2>
@@ -1049,10 +1081,10 @@
                     <span class="tag">Analysis</span>
                     <span class="tag">Impact</span>
                 </div>
-                <p style="font-size: 1.1rem; line-height: 1.6;">${description}</p>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #cbd5e1;">${description}</p>
                 <div style="margin-top: 20px;">
-                    <p><strong>Key Outcomes:</strong></p>
-                    <ul style="list-style: disc; padding-left: 20px; color: var(--text-secondary);">
+                    <p style="color: #8b5cf6; font-weight: bold; margin-bottom: 10px;">Key Outcomes:</p>
+                    <ul style="list-style: disc; padding-left: 20px; color: #94a3b8;">
                         <li>Increased accessibility in rural areas.</li>
                         <li>Reduced cost of screening by 80%.</li>
                         <li>High accuracy in early detection.</li>
@@ -1063,19 +1095,16 @@
             modal.style.display = "flex";
         }
 
-        // Open Demo Modal
         function openDemo(title) {
             let htmlContent = `
                 <h2>${title}</h2>
-                <p style="color:var(--text-secondary);">Demo Video Player</p>
-                <div class="video-placeholder">
-                    <div style="text-align: center;">
-                        <i class="fa-solid fa-play-circle" style="font-size: 4rem; margin-bottom: 10px;"></i>
+                <div style="width: 100%; height: 250px; background: #000; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 20px 0; border: 1px solid #333;">
+                    <div style="text-align: center; color: #666;">
+                        <i class="fa-solid fa-play-circle" style="font-size: 3rem; margin-bottom: 10px;"></i>
                         <p>[Video Placeholder]</p>
-                        <p style="font-size: 0.8rem; opacity: 0.7;">(Video would load here)</p>
                     </div>
                 </div>
-                <p>This demonstrates the technology in action. Notice how the AI processes the input data in real-time to provide actionable insights.</p>
+                <p style="color: #cbd5e1;">This demonstrates the technology in action. Notice how the AI processes the input data in real-time to provide actionable insights.</p>
             `;
             modalBody.innerHTML = htmlContent;
             modal.style.display = "flex";
@@ -1085,7 +1114,6 @@
             modal.style.display = "none";
         }
 
-        // Close modal if user clicks outside content
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
@@ -1100,11 +1128,11 @@
 
             if (userText === "") return;
 
-            // 1. Add User Message
+            // Add User Message
             addMessage(inputField.value, 'user-msg');
             inputField.value = '';
 
-            // 2. Simulate Typing Delay and Bot Response
+            // Simulate Bot Response
             setTimeout(() => {
                 let botResponse = "I'm sorry, I didn't understand that. Try asking about 'services', 'projects', or 'hello'.";
                 
@@ -1122,7 +1150,6 @@
             }, 600);
         }
 
-        // Allow pressing Enter to send
         document.getElementById('user-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 sendMessage();
@@ -1135,8 +1162,8 @@
             messageDiv.classList.add('message', className);
             messageDiv.textContent = text;
             chatWindow.appendChild(messageDiv);
-            chatWindow.scrollTop = chatWindow.scrollHeight; // Auto scroll to bottom
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
     </script>
-
-</body></html>
+</body>
+</html>
