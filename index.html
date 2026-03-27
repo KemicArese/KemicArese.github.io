@@ -18,7 +18,7 @@
       --accent-soft: rgba(122, 77, 243, 0.1);
       --shadow: 0 10px 30px rgba(0,0,0,0.08);
       --border: rgba(0,0,0,0.05);
-    }
+    }    
 
     body.dark {
       --bg: #0b0b10;
@@ -134,6 +134,54 @@
       border-color: var(--accent-soft);
     }
 
+    /* About Me card enhanced */
+    .about-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .about-card .about-text {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .about-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .highlight-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(159, 131, 255, 0.2);
+      border-radius: 14px;
+      padding: 10px 18px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+    .highlight-chip:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--accent-soft);
+    }
+    .highlight-chip .chip-icon { font-size: 1rem; }
+    .about-quote {
+      border-left: 3px solid var(--accent);
+      padding: 12px 20px;
+      background: var(--accent-soft);
+      border-radius: 0 12px 12px 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
     .skill-item { margin-bottom: 1.2rem; }
     .skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.9rem; font-weight: 500; }
     .progress-track { height: 8px; background: rgba(128,128,128,0.1); border-radius: 10px; overflow: hidden; }
@@ -196,6 +244,48 @@
     .project-image.arese .arese-sub {
       font-size: 0.7rem;
       color: #7a6aaa;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* JARVIS project image */
+    .project-image.jarvis {
+      background: linear-gradient(135deg, #050d1a, #0a1f35, #051525);
+      flex-direction: column;
+      gap: 6px;
+    }
+    .project-image.jarvis .jarvis-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #38bdf8, #7dd3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .project-image.jarvis .jarvis-sub {
+      font-size: 0.7rem;
+      color: #3a6a8a;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Retaliators SMP project image */
+    .project-image.smp {
+      background: linear-gradient(135deg, #0d0d0d, #1a1200, #0d0800);
+      flex-direction: column;
+      gap: 6px;
+    }
+    .project-image.smp .smp-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .project-image.smp .smp-sub {
+      font-size: 0.7rem;
+      color: #856a20;
       font-weight: 400;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -274,7 +364,7 @@
       flex-shrink: 0;
     }
 
-    
+    footer {
       text-align: center; padding: 60px 20px; color: var(--muted);
       border-top: 1px solid var(--border); font-size: 0.9rem;
     }
@@ -284,6 +374,8 @@
     .grid .card:nth-child(1) { transition-delay: 0.1s; }
     .grid .card:nth-child(2) { transition-delay: 0.2s; }
     .grid .card:nth-child(3) { transition-delay: 0.3s; }
+    .grid .card:nth-child(4) { transition-delay: 0.4s; }
+    .grid .card:nth-child(5) { transition-delay: 0.5s; }
 
     @media (max-width: 768px) {
       h2 { font-size: 2rem; }
@@ -315,10 +407,24 @@
 
 <section class="reveal">
   <h2>About Me</h2>
-  <div class="card">
-    <p style="font-size: 1.1rem; color: var(--muted);">
-      I specialize in building efficient, reliable, and visually clean software systems. My work focuses on <strong>offline AI assistants</strong>, <strong>automation tools</strong>, and <strong>performance-optimized applications</strong> that remain usable even on low-end hardware. I bridge the gap between complex backend logic and modern user interface design.
+  <div class="card about-card">
+    <p class="about-text">
+      I'm a <strong>self-taught developer</strong> in Class 8 (CBSE), building production-grade software independently — no classroom, no hand-holding. I started with a single Codingal course and quickly outgrew it, diving deep into <strong>Python, AI tooling, and full-stack web development</strong> on my own terms. While most people my age are just starting to code, I've already shipped live platforms, deployed cloud backends, and built AI assistants that run locally on real hardware.
     </p>
+    <p class="about-text">
+      My work spans <strong>offline AI assistants</strong>, <strong>automation tools</strong>, and <strong>performance-optimized applications</strong> — built to work even on low-end machines. I bridge the gap between complex backend logic and clean, modern UI design. Whether it's a full-stack student platform with OAuth and payments, or a voice-controlled PC assistant, I build things that actually work.
+    </p>
+    <div class="about-quote">
+      "Started with one course. The rest was curiosity, late nights, and a lot of trial and error."
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-chip"><span class="chip-icon">🎓</span> CBSE Class 8</div>
+      <div class="highlight-chip"><span class="chip-icon">🛠️</span> Self-Taught Developer</div>
+      <div class="highlight-chip"><span class="chip-icon">🤖</span> AI & Full-Stack Builder</div>
+      <div class="highlight-chip"><span class="chip-icon">📚</span> Codingal Alumnus</div>
+      <div class="highlight-chip"><span class="chip-icon">🚀</span> Ships Real Products</div>
+      <div class="highlight-chip"><span class="chip-icon">🎮</span> Minecraft Server Creator</div>
+    </div>
   </div>
 </section>
 
@@ -344,6 +450,26 @@
       <div style="font-size: 2rem; margin-bottom: 15px;">⚡</div>
       <h3>System Automation</h3>
       <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">Tools for productivity scripting and system-level control to reduce manual workload.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">🌐</div>
+      <h3>Full-Stack Web Dev</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">End-to-end web apps with Node.js backends, MongoDB databases, Google OAuth, and payment integrations — deployed live on the cloud.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">🖥️</div>
+      <h3>PC Automation</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">JARVIS-style AI assistants that control your Windows PC via voice or chat — launching apps, managing files, and browsing the web hands-free.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">📱</div>
+      <h3>Student Tools / EdTech</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">AI-powered study platforms, CBSE-focused dashboards, quiz generators, and smart flashcard systems built for real students.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 2rem; margin-bottom: 15px;">⛏️</div>
+      <h3>Minecraft Servers</h3>
+      <p style="color: var(--muted); margin-top: 10px; font-size: 0.95rem;">Custom Java SMP servers with social dashboards, OAuth portals, item trading systems, and community management tools built around them.</p>
     </div>
   </div>
 </section>
@@ -421,6 +547,38 @@
       </div>
     </div>
 
+    <!-- Project 4 — JARVIS -->
+    <div class="card project-card">
+      <div class="project-image jarvis">
+        <span class="jarvis-logo">JARVIS</span>
+        <span class="jarvis-sub">PC Control AI</span>
+      </div>
+      <h3>JARVIS</h3>
+      <div class="tags">
+        <span>Python</span><span>Flask</span><span>Ollama</span><span>pywebview</span><span>AI</span>
+      </div>
+      <p>A Windows PC-control AI assistant with voice & chat interaction. Handles file management, app launching, browser control, and system commands — powered by DeepSeek V3.2 via Ollama Cloud.</p>
+      <div class="actions">
+        <a href="https://github.com/KemicArese" target="_blank" class="btn">GitHub ↗</a>
+      </div>
+    </div>
+
+    <!-- Project 5 — Retaliators SMP Portal -->
+    <div class="card project-card">
+      <div class="project-image smp">
+        <span class="smp-logo">Retaliators</span>
+        <span class="smp-sub">SMP Portal</span>
+      </div>
+      <h3>Retaliators SMP Portal</h3>
+      <div class="tags">
+        <span>Google OAuth</span><span>Full-Stack</span><span>Minecraft</span><span>Real-Time</span>
+      </div>
+      <p>A full social dashboard for a Minecraft Java anarchy SMP. Features Google OAuth login, member profiles, group chat, and a peer-to-peer item request system called Supply Retaliator.</p>
+      <div class="actions">
+        <a href="https://github.com/KemicArese" target="_blank" class="btn">GitHub ↗</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -430,8 +588,8 @@
     <div class="timeline-item">
       <span class="timeline-date">Foundation</span>
       <div class="timeline-content">
-        <h3>The Start</h3>
-        <p>Built strong foundations in Python and automation scripting.</p>
+        <h3>The Start — Codingal</h3>
+        <p>Took a single Codingal course to get the basics down. Realized quickly that structured courses weren't enough — started building independently from there.</p>
       </div>
     </div>
     <div class="timeline-item">
